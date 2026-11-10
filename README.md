@@ -7,6 +7,29 @@ An open-source Android download manager that combines **Wi-Fi + Mobile Cellular 
 
 ---
 
+## 📱 Screenshots
+
+<div align="center">
+  <table>
+    <tr>
+      <td align="center" width="33%">
+        <b>⚡ Real-Time Bonded Download</b><br/><br/>
+        <img src="screenshots/active_download.jpg" alt="Active Bonded Download" width="280"/>
+      </td>
+      <td align="center" width="33%">
+        <b>🌐 Built-In Browser Sniffer</b><br/><br/>
+        <img src="screenshots/builtin_browser.jpg" alt="Built-In Browser Sniffer" width="280"/>
+      </td>
+      <td align="center" width="33%">
+        <b>🛠️ Quick Setup & Bonding Guide</b><br/><br/>
+        <img src="screenshots/setup_guide.jpg" alt="Setup Guide" width="280"/>
+      </td>
+    </tr>
+  </table>
+</div>
+
+---
+
 ## 🚀 Key Features
 
 - **⚡ Simultaneous Wi-Fi & Cellular Bonding**:
@@ -40,7 +63,10 @@ An open-source Android download manager that combines **Wi-Fi + Mobile Cellular 
 
 ## 🛠️ Build & Install
 
-### Building the APK
+### Download Pre-Built APK
+Grab the latest APK directly from the [Releases](https://github.com/VitalityUser/plexo-android/releases) section.
+
+### Building from Source
 ```powershell
 # Clone the repository
 git clone https://github.com/vitalityuser/plexo-android.git

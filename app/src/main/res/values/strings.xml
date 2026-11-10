@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Plexo</string>
+    <string name="channel_name">Download Manager</string>
+    <string name="channel_description">Notifications for active aggregated downloads</string>
+</resources>

@@ -1,7 +1,8 @@
-# Plexo Android ⚡
-
-> **Multi-Link Aggregation Downloader for Android**  
-> *UI Design & Art Direction by [@vitalityuser](https://github.com/vitalityuser)*
+<div align="center">
+  <img src="screenshots/app_icon.png" alt="Plexo Icon" width="128" style="border-radius: 28px;" />
+  <h1>Plexo Android ⚡</h1>
+  <p><b>Multi-Link Aggregation Downloader for Android</b><br/><i>UI Design & Art Direction by <a href="https://github.com/vitalityuser">@vitalityuser</a></i></p>
+</div>
 
 An open-source Android download manager that combines **Wi-Fi + Mobile Cellular (5G/4G)** into a single bonded high-speed pipeline. Features automatic download sniffing from Chrome and a built-in browser, wrapped in a frosted glass sage aesthetic.
 

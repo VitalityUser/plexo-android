@@ -1,9 +1,131 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
     android:width="108dp"
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
+
+    <!-- ==================== NETWORK LAYER ==================== -->
+
+    <!-- Wi-Fi Concentric Radiating Signal Waves (Mint/Cyan Channel) -->
     <path
-        android:fillColor="#38BDF8"
-        android:pathData="M54,20 L30,44 L44,44 L44,70 L64,70 L64,44 L78,44 Z M30,78 L78,78 L78,86 L30,86 Z"/>
+        android:strokeWidth="2.4"
+        android:strokeColor="#4EE3BF"
+        android:strokeLineCap="round"
+        android:pathData="M23,45 C23,29 35,18 51,18"/>
+
+    <path
+        android:strokeWidth="2.0"
+        android:strokeColor="#7DE3D0"
+        android:strokeLineCap="round"
+        android:strokeAlpha="0.85"
+        android:pathData="M31,48 C31,36 39,27 51,27"/>
+
+    <!-- Cellular 5G Radiating Signal Waves (Solar Orange Channel) -->
+    <path
+        android:strokeWidth="2.4"
+        android:strokeColor="#FFA940"
+        android:strokeLineCap="round"
+        android:pathData="M57,90 C73,90 85,79 85,63"/>
+
+    <path
+        android:strokeWidth="2.0"
+        android:strokeColor="#FF7A45"
+        android:strokeLineCap="round"
+        android:strokeAlpha="0.85"
+        android:pathData="M57,81 C69,81 77,72 77,60"/>
+
+    <!-- Network Circuit Link Tracks (Dual Stream Convergence) -->
+    <path
+        android:strokeWidth="1.6"
+        android:strokeColor="#4EE3BF"
+        android:strokeAlpha="0.75"
+        android:strokeLineCap="round"
+        android:pathData="M23,45 L39,51"/>
+
+    <path
+        android:strokeWidth="1.6"
+        android:strokeColor="#FFA940"
+        android:strokeAlpha="0.75"
+        android:strokeLineCap="round"
+        android:pathData="M85,63 L69,48"/>
+
+    <!-- Wi-Fi Terminal Node -->
+    <path
+        android:fillColor="#4EE3BF"
+        android:pathData="M23,45m-3.5,0a3.5,3.5 0,1 1,7 0a3.5,3.5 0,1 1,-7 0"/>
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M23,45m-1.5,0a1.5,1.5 0,1 1,3 0a1.5,1.5 0,1 1,-3 0"/>
+
+    <!-- Cellular Terminal Node -->
+    <path
+        android:fillColor="#FFA940"
+        android:pathData="M85,63m-3.5,0a3.5,3.5 0,1 1,7 0a3.5,3.5 0,1 1,-7 0"/>
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M85,63m-1.5,0a1.5,1.5 0,1 1,3 0a1.5,1.5 0,1 1,-3 0"/>
+
+    <!-- Satellite Hub Nodes -->
+    <path
+        android:fillColor="#7DE3D0"
+        android:pathData="M51,18m-2.2,0a2.2,2.2 0,1 1,4.4 0a2.2,2.2 0,1 1,-4.4 0"/>
+
+    <path
+        android:fillColor="#FF7A45"
+        android:pathData="M57,90m-2.2,0a2.2,2.2 0,1 1,4.4 0a2.2,2.2 0,1 1,-4.4 0"/>
+
+
+    <!-- ==================== THUNDERBOLT HERO LAYER ==================== -->
+
+    <!-- Thunderbolt Outer Ambient Energy Glow -->
+    <path
+        android:strokeWidth="6"
+        android:strokeColor="#4022D3EE"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M57,21 L39,51 L51,51 L45,87 L69,48 L57,48 Z"/>
+
+    <!-- Hero Lightning Thunderbolt (Dual-Channel Gradient: Mint/Cyan to Solar Amber) -->
+    <path
+        android:pathData="M57,21 L39,51 L51,51 L45,87 L69,48 L57,48 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="39"
+                android:startY="21"
+                android:endX="69"
+                android:endY="87"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#22D3EE"/>
+                <item android:offset="0.38" android:color="#4EE3BF"/>
+                <item android:offset="0.72" android:color="#FFA940"/>
+                <item android:offset="1.0" android:color="#FF7A45"/>
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Inner High-Voltage Spark Core (Pure White Electric Energy) -->
+    <path
+        android:pathData="M56,26 L43,50 L51,50 L47,81 L65,49 L57,49 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="43"
+                android:startY="26"
+                android:endX="65"
+                android:endY="81"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FFFFFF"/>
+                <item android:offset="0.5" android:color="#E0FFF8"/>
+                <item android:offset="1.0" android:color="#FFF2D6"/>
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Dynamic Central Voltage Strike Highlight -->
+    <path
+        android:strokeWidth="1.2"
+        android:strokeColor="#FFFFFF"
+        android:strokeLineCap="round"
+        android:pathData="M55,30 L45,51 L55,51 L48,76"/>
+
 </vector>

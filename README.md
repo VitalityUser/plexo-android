@@ -65,7 +65,11 @@ An open-source Android download manager that combines **Wi-Fi + Mobile Cellular 
 ## 🛠️ Build & Install
 
 ### Download Pre-Built APK
-Grab the latest APK directly from the [Releases](https://github.com/VitalityUser/plexo-android/releases) section.
+Download the latest versioned release directly:
+
+[![Download APK](https://img.shields.io/badge/Download_APK-Plexo--Android--v1.0.0.apk-4EE3BF?style=for-the-badge&logo=android&logoColor=0B1715)](https://github.com/VitalityUser/plexo-android/releases/download/v1.0.0/Plexo-Android-v1.0.0.apk)
+
+Or browse all versions in the [Releases](https://github.com/VitalityUser/plexo-android/releases) section.
 
 ### Building from Source
 ```powershell
@@ -73,14 +77,14 @@ Grab the latest APK directly from the [Releases](https://github.com/VitalityUser
 git clone https://github.com/vitalityuser/plexo-android.git
 cd plexo-android
 
-# Build Debug APK
+# Build APK (automatically outputs version-named APK)
 ./gradlew assembleDebug
 ```
-The compiled APK will be located at `app/build/outputs/apk/debug/app-debug.apk`.
+The compiled APK will be located at `app/build/outputs/apk/debug/Plexo-Android-v1.0.0.apk`.
 
 ### Installing via ADB
 ```powershell
-adb install -r app/build/outputs/apk/debug/app-debug.apk
+adb install -r app/build/outputs/apk/debug/Plexo-Android-v1.0.0.apk
 ```
 
 ---

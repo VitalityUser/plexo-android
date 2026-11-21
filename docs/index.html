@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plexo Android — Multi-Network Download Manager (Wi-Fi + 5G Cellular Bonding)</title>
+  <meta name="description" content="Plexo Android is a free, open-source multi-network download manager for Android that bonds Wi-Fi and 5G/4G Cellular connections simultaneously for up to 2x faster aggregated downloads.">
+  <meta name="keywords" content="plexo android, multi network download manager for android, multi net download manager, wifi and cellular download manager android, channel bonding android, network aggregation android apk, dual link download manager">
+  <meta name="author" content="VitalityUser">
+  <link rel="canonical" href="https://vitalityuser.github.io/plexo-android/">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://vitalityuser.github.io/plexo-android/">
+  <meta property="og:title" content="Plexo Android — Multi-Network Download Manager">
+  <meta property="og:description" content="Bond Wi-Fi and 5G/4G Cellular data simultaneously for 2x faster downloads on Android. Free and open source.">
+  <meta property="og:image" content="https://raw.githubusercontent.com/VitalityUser/plexo-android/main/screenshots/app_icon.png">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://vitalityuser.github.io/plexo-android/">
+  <meta property="twitter:title" content="Plexo Android — Multi-Network Download Manager">
+  <meta property="twitter:description" content="Bond Wi-Fi and 5G/4G Cellular data simultaneously for 2x faster downloads on Android.">
+  <meta property="twitter:image" content="https://raw.githubusercontent.com/VitalityUser/plexo-android/main/screenshots/app_icon.png">
+
+  <!-- Schema.org JSON-LD Structured Data for Google Rich Snippets -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Plexo Android",
+    "operatingSystem": "Android 8.0+",
+    "applicationCategory": "UtilitiesApplication",
+    "description": "Multi-network download manager for Android that aggregates simultaneous Wi-Fi and 5G/4G cellular connections for accelerated downloads.",
+    "downloadUrl": "https://github.com/VitalityUser/plexo-android/releases/download/v1.0.0/Plexo-Android-v1.0.0.apk",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "author": {
+      "@type": "Person",
+      "name": "VitalityUser",
+      "url": "https://github.com/VitalityUser"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg-top: #749990;
+      --bg-mid: #3f635b;
+      --bg-bot: #1b3630;
+      --bg-deep: #10211d;
+      --mint: #4ee3bf;
+      --orange: #ffa940;
+      --cyan: #22d3ee;
+      --glass: rgba(255, 255, 255, 0.12);
+      --glass-border: rgba(255, 255, 255, 0.25);
+      --text-primary: #ffffff;
+      --text-secondary: #c5e0d9;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: linear-gradient(180deg, var(--bg-top) 0%, var(--bg-mid) 40%, var(--bg-bot) 80%, var(--bg-deep) 100%);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+    .container { max-width: 900px; margin: 0 auto; padding: 40px 20px 80px; }
+    header { text-align: center; margin-bottom: 50px; }
+    .icon { width: 110px; height: 110px; border-radius: 26px; box-shadow: 0 16px 40px rgba(0,0,0,0.3); margin-bottom: 20px; }
+    h1 { font-size: 2.8rem; font-weight: 800; margin-bottom: 12px; letter-spacing: -0.5px; }
+    .tagline { font-size: 1.25rem; color: var(--text-secondary); margin-bottom: 24px; font-weight: 500; }
+    .cta-group { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px; }
+    .btn {
+      padding: 14px 28px; border-radius: 50px; font-weight: 700; text-decoration: none; font-size: 1rem;
+      display: inline-flex; align-items: center; gap: 10px; transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-primary { background: #ffffff; color: #0b1b18; box-shadow: 0 10px 25px rgba(0,0,0,0.25); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(0,0,0,0.35); }
+    .btn-secondary { background: var(--glass); color: #ffffff; border: 1px solid var(--glass-border); backdrop-filter: blur(10px); }
+    .btn-secondary:hover { transform: translateY(-2px); background: rgba(255,255,255,0.2); }
+    .card {
+      background: var(--glass); border: 1px solid var(--glass-border); border-radius: 24px;
+      padding: 30px; margin-bottom: 30px; backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    }
+    h2 { font-size: 1.8rem; margin-bottom: 18px; color: #ffffff; }
+    h3 { font-size: 1.25rem; margin: 16px 0 8px; color: var(--mint); }
+    p { margin-bottom: 14px; color: var(--text-secondary); }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px; }
+    .feature-box { background: rgba(0,0,0,0.18); border-radius: 18px; padding: 20px; border: 1px solid rgba(255,255,255,0.1); }
+    .table-wrap { overflow-x: auto; margin-top: 15px; }
+    table { width: 100%; border-collapse: collapse; text-align: left; }
+    th, td { padding: 14px; border-bottom: 1px solid rgba(255,255,255,0.15); }
+    th { color: var(--mint); font-weight: 700; }
+    .faq-item { margin-bottom: 18px; }
+    .faq-q { font-weight: 700; color: #ffffff; font-size: 1.1rem; margin-bottom: 6px; }
+    footer { text-align: center; margin-top: 60px; color: var(--text-secondary); font-size: 0.95rem; }
+    footer a { color: var(--mint); text-decoration: none; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <img src="https://raw.githubusercontent.com/VitalityUser/plexo-android/main/screenshots/app_icon.png" alt="Plexo Android App Icon" class="icon">
+      <h1>Plexo Android ⚡</h1>
+      <p class="tagline">The High-Speed Multi-Network Download Manager for Android</p>
+      <div class="cta-group">
+        <a href="https://github.com/VitalityUser/plexo-android/releases/download/v1.0.0/Plexo-Android-v1.0.0.apk" class="btn btn-primary">⚡ Download Free APK (v1.0.0)</a>
+        <a href="https://github.com/VitalityUser/plexo-android" class="btn btn-secondary">⭐️ View on GitHub</a>
+      </div>
+    </header>
+
+    <section class="card">
+      <h2>What is Plexo Android?</h2>
+      <p>
+        <strong>Plexo Android</strong> is a revolutionary open-source <strong>multi-network download manager for Android</strong> designed to combine your <strong>Wi-Fi and 5G/4G Cellular data</strong> into a single aggregated high-speed pipeline.
+      </p>
+      <p>
+        Instead of letting your secondary internet connection sit idle, Plexo leverages Android's <code>ConnectivityManager.requestNetwork</code> API to keep both interfaces active simultaneously, splitting large files into multi-socket parallel streams across both networks to deliver up to <strong>2x faster download speeds</strong>.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Why Choose a Multi-Network Download Manager?</h2>
+      <div class="grid">
+        <div class="feature-box">
+          <h3>⚡ Wi-Fi + 5G Channel Bonding</h3>
+          <p>Combines simultaneous Wi-Fi and Cellular bandwidth on supported Android devices for maximum throughput.</p>
+        </div>
+        <div class="feature-box">
+          <h3>🎯 Chrome Auto-Interception</h3>
+          <p>Automatically detects and captures download links clicked in Chrome or shared from any Android web browser.</p>
+        </div>
+        <div class="feature-box">
+          <h3>🌐 Built-in Plexo Browser</h3>
+          <p>Browse download sites directly inside the app with 1-tap download sniffing and instant multi-stream acceleration.</p>
+        </div>
+        <div class="feature-box">
+          <h3>🌿 Frosted Sage Aesthetic</h3>
+          <p>Art-directed glassmorphic UI by @vitalityuser featuring real-time waveforms, 7-day stats, and floating navigation.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Plexo vs Standard Android Download Managers</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>Standard Downloaders (ADM / 1DM)</th>
+              <th>Plexo Android (Multi-Network)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Network Aggregation</strong></td>
+              <td>❌ Single network only (Wi-Fi OR Mobile)</td>
+              <td>✅ <strong>Simultaneous Wi-Fi + 5G Cellular Bonding</strong></td>
+            </tr>
+            <tr>
+              <td><strong>Socket Binding</strong></td>
+              <td>❌ Default OS routing only</td>
+              <td>✅ <strong>Per-socket network interface routing</strong></td>
+            </tr>
+            <tr>
+              <td><strong>Speed Capability</strong></td>
+              <td>⚠️ Capped by single pipe speed</td>
+              <td>⚡ <strong>Aggregated speed (Wi-Fi + Mobile combined)</strong></td>
+            </tr>
+            <tr>
+              <td><strong>License & Privacy</strong></td>
+              <td>❌ Proprietary / Ads / Tracking</td>
+              <td>🛡️ <strong>100% Free & Open Source (No Ads)</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Frequently Asked Questions (FAQ)</h2>
+      <div class="faq-item">
+        <div class="faq-q">How does Plexo download over Wi-Fi and Mobile Data at the same time?</div>
+        <p>Plexo uses Android's multi-network APIs to bind individual socket connections directly to specific network interfaces. Chunks 1–8 are routed via Wi-Fi while chunks 9–16 are routed via Mobile Data simultaneously, recombining the file in real-time.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">How do I enable dual connections on my Android device?</div>
+        <p>Go to Android <strong>Settings > Developer Options</strong> and turn ON <strong>"Mobile data always active"</strong>. Then turn on both Wi-Fi and Mobile Data. Plexo will display the <strong>⚡ BONDED</strong> status.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Is Plexo Android free?</div>
+        <p>Yes! Plexo is 100% free, open-source under the MIT license, and contains no ads or tracking.</p>
+      </div>
+    </section>
+
+    <footer>
+      <p>Plexo Android &bull; Created with &hearts; by <a href="https://github.com/VitalityUser">@vitalityuser</a> &bull; Open Source on <a href="https://github.com/VitalityUser/plexo-android">GitHub</a></p>
+    </footer>
+  </div>
+</body>
+</html>

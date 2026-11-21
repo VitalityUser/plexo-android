@@ -619,7 +619,7 @@
       <!-- Announcement Banner -->
       <a class="announce" href="https://github.com/VitalityUser/plexo-android/releases/tag/v1.0.0">
         <span class="pill-new">NEW</span>
-        <span>Plexo Android v1.0.0 is officially released with dual Wi-Fi + 5G bonding</span>
+        <span>Plexo Android v1.0.0 is officially released with Quad-Link bonding (Wi-Fi, 5G Cellular, USB Ethernet & Bluetooth)</span>
         <span class="announce-cta">Download APK <span>&rarr;</span></span>
       </a>
 
@@ -660,7 +660,7 @@
           </h1>
 
           <p class="hero-desc">
-            Plexo Android combines your Wi-Fi and 5G/4G Cellular data simultaneously into a single high-speed pipeline. Stop letting your secondary connection sit idle.
+            Plexo Android combines your Wi-Fi, 5G/4G Cellular data, USB-C Gigabit Ethernet, and Bluetooth Tethering simultaneously into a single high-speed pipeline. Stop letting secondary connections sit idle.
           </p>
 
           <div class="hero-actions">
@@ -706,8 +706,8 @@
           <div class="features-grid">
             <div class="feat-card">
               <div class="feat-icon">⚡</div>
-              <h3>Dual-Link Channel Bonding</h3>
-              <p>Uses per-socket network binding via Android's ConnectivityManager to keep Wi-Fi and 5G cellular alive simultaneously, routing separate download chunks over both pipes.</p>
+              <h3>Quad-Link Multi-Interface Bonding</h3>
+              <p>Uses per-socket network binding via Android's ConnectivityManager to keep Wi-Fi, 5G cellular, USB-C Ethernet, and Bluetooth tethering alive simultaneously, dynamically distributing chunks across all active pipes.</p>
             </div>
 
             <div class="feat-card">
@@ -762,7 +762,7 @@
                 <tr>
                   <td><strong>Network Aggregation</strong></td>
                   <td>❌ Single network only (Wi-Fi OR Mobile)</td>
-                  <td><span class="badge-check">✅ Simultaneous Wi-Fi + 5G Bonding</span></td>
+                  <td><span class="badge-check">✅ Simultaneous Wi-Fi + 5G + Ethernet + Bluetooth</span></td>
                 </tr>
                 <tr>
                   <td><strong>Socket Interface Binding</strong></td>
@@ -832,8 +832,13 @@
 
           <div class="faq-list">
             <div class="faq-card">
-              <h4>How does Plexo combine Wi-Fi and Mobile Data at the same time?</h4>
-              <p>Android devices have separate physical network adapters for Wi-Fi and Cellular. Plexo requests Android's system to keep both adapters alive and binds half of the download chunks to Wi-Fi sockets and the other half to Cellular sockets simultaneously.</p>
+              <h4>Can I connect multiple Wi-Fi networks at once?</h4>
+              <p>Phones physically contain only one Wi-Fi radio antenna, so connecting to two different Wi-Fi routers directly is impossible without dual-radio hardware. However, Plexo solves this by letting you bond Wi-Fi with USB-C Ethernet (via a USB-C adapter) and Bluetooth Tethering (from a second phone or hotspot), alongside 5G cellular for true multi-link aggregation.</p>
+            </div>
+
+            <div class="faq-card">
+              <h4>How does Plexo combine multiple connections at the same time?</h4>
+              <p>Android devices have separate physical network adapters for Wi-Fi, Cellular, Ethernet, and Bluetooth. Plexo requests Android's system to keep all adapters alive and binds parallel download chunks across each socket simultaneously.</p>
             </div>
 
             <div class="faq-card">

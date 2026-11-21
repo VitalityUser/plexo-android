@@ -133,7 +133,10 @@ fun PlexoDashboardScreen(viewModel: DownloadViewModel) {
                     }
 
                     // Bonding Active Pill
-                    VitalityBondingBadge(isBonding = networkState.isBondingActive)
+                    VitalityBondingBadge(
+                        isBonding = networkState.isBondingActive,
+                        count = networkState.activeInterfaceCount
+                    )
                 }
             }
 
@@ -149,7 +152,7 @@ fun PlexoDashboardScreen(viewModel: DownloadViewModel) {
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
-                text = if (networkState.isBondingActive) "Dual-channel cellular & Wi-Fi bonding is operational" else "Single channel connection active",
+                text = if (networkState.isBondingActive) "Multi-channel bonding active (${networkState.activeInterfaceCount} links operational)" else "Single channel connection active",
                 fontSize = 12.sp,
                 color = SageTextSecondary
             )
@@ -253,13 +256,35 @@ fun PlexoDashboardScreen(viewModel: DownloadViewModel) {
                     progress = if (networkState.cellular.isConnected) 0.70f else 0f
                 )
 
-                // Card 3: Combined Aggregated Flow Card
+                // Card 3: USB Ethernet Stats Card
+                VitalityMetricCard(
+                    title = "Ethernet link",
+                    value = currentTask?.formattedEthernetSpeed ?: (if (networkState.ethernet.isConnected) "Gigabit" else "Offline"),
+                    badgeText = if (networkState.ethernet.isConnected) "USB-C Active" else "Standby",
+                    ringColor = VitalityCyan,
+                    glowColor = VitalityCyanGlow,
+                    icon = Icons.Default.Lan,
+                    progress = if (networkState.ethernet.isConnected) 0.95f else 0f
+                )
+
+                // Card 4: Bluetooth Tethering Card
+                VitalityMetricCard(
+                    title = "Bluetooth link",
+                    value = currentTask?.formattedBluetoothSpeed ?: (if (networkState.bluetooth.isConnected) "Tethered" else "Offline"),
+                    badgeText = if (networkState.bluetooth.isConnected) "Tether Active" else "Standby",
+                    ringColor = VitalityPurple,
+                    glowColor = VitalityPurpleGlow,
+                    icon = Icons.Default.Bluetooth,
+                    progress = if (networkState.bluetooth.isConnected) 0.65f else 0f
+                )
+
+                // Card 5: Combined Aggregated Flow Card
                 VitalityMetricCard(
                     title = "Aggregated flow",
                     value = currentTask?.formattedTotalSpeed ?: "0 MB/s",
-                    badgeText = if (networkState.isBondingActive) "2x Speed" else "Normal",
-                    ringColor = VitalityCyan,
-                    glowColor = Cyan400,
+                    badgeText = if (networkState.isBondingActive) "${networkState.activeInterfaceCount}x Multi-Link" else "Single",
+                    ringColor = VitalityMintGlow,
+                    glowColor = VitalityMint,
                     icon = Icons.Default.Bolt,
                     progress = if (networkState.isBondingActive) 1.0f else 0.5f
                 )
@@ -291,6 +316,7 @@ fun PlexoDashboardScreen(viewModel: DownloadViewModel) {
 
                 VitalityActiveDownloadCard(
                     task = task,
+                    networkState = networkState,
                     onPause = { viewModel.pauseDownload() },
                     onCancel = { viewModel.cancelDownload() }
                 )
@@ -523,10 +549,10 @@ fun PlexoDashboardScreen(viewModel: DownloadViewModel) {
 }
 
 @Composable
-fun VitalityBondingBadge(isBonding: Boolean) {
+fun VitalityBondingBadge(isBonding: Boolean, count: Int = 1) {
     val bgColor = if (isBonding) VitalityMint.copy(alpha = 0.2f) else VitalityGlassCardLight
     val textColor = if (isBonding) VitalityMint else SageTextMuted
-    val text = if (isBonding) "⚡ BONDED" else "SINGLE LINK"
+    val text = if (isBonding) "⚡ ${count}X BONDED" else "SINGLE LINK"
 
     Box(
         modifier = Modifier
@@ -656,6 +682,7 @@ fun VitalityMetricCard(
 @Composable
 fun VitalityActiveDownloadCard(
     task: DownloadTask,
+    networkState: NetworkBondingState,
     onPause: () -> Unit,
     onCancel: () -> Unit
 ) {
@@ -780,15 +807,17 @@ fun VitalityActiveDownloadCard(
 
             Spacer(modifier = Modifier.height(14.dp))
 
-            // Dual Frosted Stat Tiles (Calories & Duration style from screenshot)
+            // Dynamic Multi-Link Speed Tiles (Wi-Fi, 5G, Ethernet, Bluetooth)
             Row(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .horizontalScroll(rememberScrollState()),
                 horizontalArrangement = Arrangement.spacedBy(10.dp)
             ) {
                 // Wi-Fi Tile
                 Box(
                     modifier = Modifier
-                        .weight(1f)
+                        .width(136.dp)
                         .clip(RoundedCornerShape(18.dp))
                         .background(VitalityGlassCardLight)
                         .padding(12.dp)
@@ -807,7 +836,7 @@ fun VitalityActiveDownloadCard(
                 // Cellular Tile
                 Box(
                     modifier = Modifier
-                        .weight(1f)
+                        .width(136.dp)
                         .clip(RoundedCornerShape(18.dp))
                         .background(VitalityGlassCardLight)
                         .padding(12.dp)
@@ -820,6 +849,48 @@ fun VitalityActiveDownloadCard(
                         }
                         Spacer(modifier = Modifier.height(4.dp))
                         Text(task.formattedCellularSpeed, fontSize = 14.sp, fontWeight = FontWeight.Bold, color = SageTextPrimary)
+                    }
+                }
+
+                // Ethernet Tile
+                if (networkState.ethernet.isConnected || task.ethernetSpeedBps > 0) {
+                    Box(
+                        modifier = Modifier
+                            .width(136.dp)
+                            .clip(RoundedCornerShape(18.dp))
+                            .background(VitalityGlassCardLight)
+                            .padding(12.dp)
+                    ) {
+                        Column {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Icon(Icons.Default.Lan, contentDescription = null, tint = VitalityCyan, modifier = Modifier.size(14.dp))
+                                Spacer(modifier = Modifier.width(6.dp))
+                                Text("Ethernet Flow", fontSize = 11.sp, color = SageTextSecondary)
+                            }
+                            Spacer(modifier = Modifier.height(4.dp))
+                            Text(task.formattedEthernetSpeed, fontSize = 14.sp, fontWeight = FontWeight.Bold, color = SageTextPrimary)
+                        }
+                    }
+                }
+
+                // Bluetooth Tile
+                if (networkState.bluetooth.isConnected || task.bluetoothSpeedBps > 0) {
+                    Box(
+                        modifier = Modifier
+                            .width(136.dp)
+                            .clip(RoundedCornerShape(18.dp))
+                            .background(VitalityGlassCardLight)
+                            .padding(12.dp)
+                    ) {
+                        Column {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Icon(Icons.Default.Bluetooth, contentDescription = null, tint = VitalityPurple, modifier = Modifier.size(14.dp))
+                                Spacer(modifier = Modifier.width(6.dp))
+                                Text("Bluetooth Flow", fontSize = 11.sp, color = SageTextSecondary)
+                            }
+                            Spacer(modifier = Modifier.height(4.dp))
+                            Text(task.formattedBluetoothSpeed, fontSize = 14.sp, fontWeight = FontWeight.Bold, color = SageTextPrimary)
+                        }
                     }
                 }
             }
@@ -835,7 +906,9 @@ fun VitalityActiveDownloadCard(
                         val chunkColor = when (chunk.assignedInterface) {
                             NetworkInterfaceType.WIFI -> VitalityMint
                             NetworkInterfaceType.CELLULAR -> VitalityOrange
-                            NetworkInterfaceType.DEFAULT -> VitalityCyan
+                            NetworkInterfaceType.ETHERNET -> VitalityCyan
+                            NetworkInterfaceType.BLUETOOTH -> VitalityPurple
+                            NetworkInterfaceType.DEFAULT -> Color.White
                         }
                         Box(
                             modifier = Modifier
@@ -967,8 +1040,8 @@ fun VitalitySetupGuideCard() {
 
                     SetupStepItem(
                         step = "2",
-                        title = "Turn ON Both Connections",
-                        description = "Enable both Wi-Fi and Mobile Data on your device. The top badge will turn green with '⚡ BONDED' when both adapters are ready.",
+                        title = "Turn ON Connections (Wi-Fi + Cellular)",
+                        description = "Enable both Wi-Fi and Mobile Data on your device. The top badge will turn green with '⚡ 2X BONDED' when both adapters are ready.",
                         icon = Icons.Default.CompareArrows,
                         accentColor = VitalityOrange
                     )
@@ -977,9 +1050,9 @@ fun VitalitySetupGuideCard() {
 
                     SetupStepItem(
                         step = "3",
-                        title = "Download from Chrome or In-App Browser",
-                        description = "In Chrome or any app, tap Share > Plexo, copy any link, or browse websites in the built-in 'Browser' tab to intercept downloads.",
-                        icon = Icons.Default.Language,
+                        title = "USB-C Ethernet & Bluetooth Tethering",
+                        description = "Plug in a USB-C Ethernet adapter for gigabit speeds, or pair with a second phone via Bluetooth Tethering to bond multiple connections without consuming extra cellular data!",
+                        icon = Icons.Default.Lan,
                         accentColor = VitalityCyan
                     )
 
@@ -987,6 +1060,16 @@ fun VitalitySetupGuideCard() {
 
                     SetupStepItem(
                         step = "4",
+                        title = "Download from Chrome or In-App Browser",
+                        description = "In Chrome or any app, tap Share > Plexo, copy any link, or browse websites in the built-in 'Browser' tab to intercept downloads.",
+                        icon = Icons.Default.Language,
+                        accentColor = VitalityPurple
+                    )
+
+                    Spacer(modifier = Modifier.height(12.dp))
+
+                    SetupStepItem(
+                        step = "5",
                         title = "Unrestricted Battery",
                         description = "Set Plexo's App Battery usage to 'Unrestricted' so background bonded streams are never paused when your screen is locked.",
                         icon = Icons.Default.BatteryChargingFull,

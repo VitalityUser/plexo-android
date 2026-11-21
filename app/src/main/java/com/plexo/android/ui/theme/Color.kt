@@ -27,6 +27,9 @@ val VitalityOrangeGlow = Color(0xFFFFA940)
 val VitalityMint = Color(0xFF4EE3BF)
 val VitalityMintGlow = Color(0xFF7DE3D0)
 val VitalityCyan = Color(0xFF22D3EE)
+val VitalityCyanGlow = Color(0xFF67E8F9)
+val VitalityPurple = Color(0xFFA78BFA)
+val VitalityPurpleGlow = Color(0xFFC084FC)
 val VitalityEmeraldDark = Color(0xFF09241E)
 
 // Retained color tokens for backward-compatibility

@@ -244,6 +244,48 @@ fun PlexoProfileScreen(viewModel: DownloadViewModel) {
                         )
                     }
                 )
+
+                // Item 4: USB-C Ethernet Status
+                ProfileSettingRow(
+                    icon = Icons.Default.Lan,
+                    title = "USB-C Ethernet Aggregation",
+                    trailing = {
+                        Box(
+                            modifier = Modifier
+                                .clip(RoundedCornerShape(12.dp))
+                                .background(if (networkState.ethernet.isConnected) VitalityMint.copy(alpha = 0.2f) else VitalityGlassCardDark)
+                                .padding(horizontal = 8.dp, vertical = 4.dp)
+                        ) {
+                            Text(
+                                text = if (networkState.ethernet.isConnected) "ACTIVE" else "READY",
+                                fontSize = 10.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = if (networkState.ethernet.isConnected) VitalityMint else SageTextMuted
+                            )
+                        }
+                    }
+                )
+
+                // Item 5: Bluetooth Tethering Status
+                ProfileSettingRow(
+                    icon = Icons.Default.Bluetooth,
+                    title = "Bluetooth Tethering Bonding",
+                    trailing = {
+                        Box(
+                            modifier = Modifier
+                                .clip(RoundedCornerShape(12.dp))
+                                .background(if (networkState.bluetooth.isConnected) VitalityPurple.copy(alpha = 0.2f) else VitalityGlassCardDark)
+                                .padding(horizontal = 8.dp, vertical = 4.dp)
+                        ) {
+                            Text(
+                                text = if (networkState.bluetooth.isConnected) "ACTIVE" else "READY",
+                                fontSize = 10.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = if (networkState.bluetooth.isConnected) VitalityPurple else SageTextMuted
+                            )
+                        }
+                    }
+                )
             }
 
             Spacer(modifier = Modifier.height(24.dp))
@@ -263,7 +305,7 @@ fun PlexoProfileScreen(viewModel: DownloadViewModel) {
                 ProfileLinkRow(
                     icon = Icons.Default.HelpOutline,
                     title = "How to Bond Networks (Guide)",
-                    subtitle = "4-step setup for Wi-Fi + 5G Cellular"
+                    subtitle = "Multi-link setup (Wi-Fi, 5G, USB Ethernet & Bluetooth)"
                 )
 
                 // Item 2: GitHub

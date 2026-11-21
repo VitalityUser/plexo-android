@@ -34,13 +34,20 @@ class MultiNetworkDownloader(
     private var outputFile: File? = null
     private var fileChannel: FileChannel? = null
 
-    // Real-time speed calculation counters
+    // Real-time speed calculation counters for all supported network interfaces
     private val wifiBytesSample = AtomicLong(0)
     private val cellularBytesSample = AtomicLong(0)
+    private val ethernetBytesSample = AtomicLong(0)
+    private val bluetoothBytesSample = AtomicLong(0)
 
     fun startDownload(url: String, segmentCount: Int = 4) {
         activeJob?.cancel()
         speedJob?.cancel()
+
+        wifiBytesSample.set(0)
+        cellularBytesSample.set(0)
+        ethernetBytesSample.set(0)
+        bluetoothBytesSample.set(0)
 
         val taskId = UUID.randomUUID().toString()
         val rawFileName = extractFileName(url)
@@ -134,7 +141,9 @@ class MultiNetworkDownloader(
                     downloadedBytes = contentLength,
                     totalSpeedBps = 0,
                     wifiSpeedBps = 0,
-                    cellularSpeedBps = 0
+                    cellularSpeedBps = 0,
+                    ethernetSpeedBps = 0,
+                    bluetoothSpeedBps = 0
                 )
             }
         } else {
@@ -144,7 +153,8 @@ class MultiNetworkDownloader(
     }
 
     private fun createChunks(totalBytes: Long, segments: Int): List<DownloadChunk> {
-        val hasBonding = networkManager.hasBothNetworks()
+        val availableTransports = networkManager.getAvailableTransports()
+        val hasMultiBonding = availableTransports.size >= 2
         val chunkSize = totalBytes / segments
         val chunks = mutableListOf<DownloadChunk>()
 
@@ -152,9 +162,8 @@ class MultiNetworkDownloader(
             val start = i * chunkSize
             val end = if (i == segments - 1) totalBytes - 1 else (start + chunkSize - 1)
             val assignedInterface = when {
-                !hasBonding -> NetworkInterfaceType.DEFAULT
-                i % 2 == 0 -> NetworkInterfaceType.WIFI
-                else -> NetworkInterfaceType.CELLULAR
+                !hasMultiBonding -> availableTransports.firstOrNull() ?: NetworkInterfaceType.DEFAULT
+                else -> availableTransports[i % availableTransports.size]
             }
             chunks.add(
                 DownloadChunk(
@@ -199,6 +208,8 @@ class MultiNetworkDownloader(
                 when (chunk.assignedInterface) {
                     NetworkInterfaceType.WIFI -> wifiBytesSample.addAndGet(bytesRead.toLong())
                     NetworkInterfaceType.CELLULAR -> cellularBytesSample.addAndGet(bytesRead.toLong())
+                    NetworkInterfaceType.ETHERNET -> ethernetBytesSample.addAndGet(bytesRead.toLong())
+                    NetworkInterfaceType.BLUETOOTH -> bluetoothBytesSample.addAndGet(bytesRead.toLong())
                     NetworkInterfaceType.DEFAULT -> wifiBytesSample.addAndGet(bytesRead.toLong())
                 }
 
@@ -250,7 +261,12 @@ class MultiNetworkDownloader(
             it?.copy(
                 status = DownloadStatus.COMPLETED,
                 downloadedBytes = totalRead,
-                totalBytes = if (totalBytes <= 0) totalRead else totalBytes
+                totalBytes = if (totalBytes <= 0) totalRead else totalBytes,
+                totalSpeedBps = 0,
+                wifiSpeedBps = 0,
+                cellularSpeedBps = 0,
+                ethernetSpeedBps = 0,
+                bluetoothSpeedBps = 0
             )
         }
     }
@@ -292,14 +308,18 @@ class MultiNetworkDownloader(
                 delay(1000)
                 val wifiDelta = wifiBytesSample.getAndSet(0)
                 val cellularDelta = cellularBytesSample.getAndSet(0)
-                val totalDelta = wifiDelta + cellularDelta
+                val ethernetDelta = ethernetBytesSample.getAndSet(0)
+                val bluetoothDelta = bluetoothBytesSample.getAndSet(0)
+                val totalDelta = wifiDelta + cellularDelta + ethernetDelta + bluetoothDelta
 
                 _taskState.update { current ->
                     if (current?.status == DownloadStatus.DOWNLOADING) {
                         current.copy(
                             totalSpeedBps = totalDelta,
                             wifiSpeedBps = wifiDelta,
-                            cellularSpeedBps = cellularDelta
+                            cellularSpeedBps = cellularDelta,
+                            ethernetSpeedBps = ethernetDelta,
+                            bluetoothSpeedBps = bluetoothDelta
                         )
                     } else current
                 }
@@ -309,7 +329,16 @@ class MultiNetworkDownloader(
 
     fun pauseDownload() {
         activeJob?.cancel()
-        _taskState.update { it?.copy(status = DownloadStatus.PAUSED, totalSpeedBps = 0, wifiSpeedBps = 0, cellularSpeedBps = 0) }
+        _taskState.update {
+            it?.copy(
+                status = DownloadStatus.PAUSED,
+                totalSpeedBps = 0,
+                wifiSpeedBps = 0,
+                cellularSpeedBps = 0,
+                ethernetSpeedBps = 0,
+                bluetoothSpeedBps = 0
+            )
+        }
         closeFile()
     }
 

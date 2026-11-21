@@ -44,6 +44,8 @@ data class DownloadTask(
     val totalSpeedBps: Long = 0L,
     val wifiSpeedBps: Long = 0L,
     val cellularSpeedBps: Long = 0L,
+    val ethernetSpeedBps: Long = 0L,
+    val bluetoothSpeedBps: Long = 0L,
     val chunks: List<DownloadChunk> = emptyList(),
     val errorMessage: String? = null
 ) {
@@ -60,6 +62,12 @@ data class DownloadTask(
 
     val formattedCellularSpeed: String
         get() = formatSpeed(cellularSpeedBps)
+
+    val formattedEthernetSpeed: String
+        get() = formatSpeed(ethernetSpeedBps)
+
+    val formattedBluetoothSpeed: String
+        get() = formatSpeed(bluetoothSpeedBps)
 
     val formattedSize: String
         get() {

@@ -1,7 +1,7 @@
 <div align="center">
   <img src="screenshots/app_icon.png" alt="Plexo Android - Multi-Network Download Manager App Icon" width="128" style="border-radius: 28px;" />
   <h1>Plexo Android ⚡</h1>
-  <p><b>Multi-Network Download Manager for Android (Wi-Fi + 5G Cellular Bonding)</b><br/><i>UI Design & Art Direction by <a href="https://github.com/vitalityuser">@vitalityuser</a></i></p>
+  <p><b>Multi-Network Download Manager for Android (Wi-Fi + 5G Cellular + USB Ethernet + Bluetooth)</b><br/><i>UI Design & Art Direction by <a href="https://github.com/vitalityuser">@vitalityuser</a></i></p>
 
   <p>
     <a href="https://github.com/VitalityUser/plexo-android/releases"><img src="https://img.shields.io/github/v/release/VitalityUser/plexo-android?style=for-the-badge&color=4EE3BF" alt="Latest Release" /></a>
@@ -11,7 +11,7 @@
   </p>
 </div>
 
-> **Plexo Android** is a high-speed **multi-network download manager for Android** that combines **Wi-Fi and 5G/4G Cellular data simultaneously** into a single bonded download pipeline. By utilizing per-socket network interface binding and multi-stream parallel chunking, Plexo achieves up to **2x faster aggregated download speeds** than traditional single-pipe downloaders.
+> **Plexo Android** is a high-speed **multi-network download manager for Android** that combines **Wi-Fi, 5G/4G Cellular data, USB-C Ethernet, and Bluetooth Tethering simultaneously** into a single bonded download pipeline. By utilizing per-socket network interface binding and multi-stream parallel chunking, Plexo achieves up to **2x-4x faster aggregated download speeds** than traditional single-pipe downloaders.
 
 ---
 

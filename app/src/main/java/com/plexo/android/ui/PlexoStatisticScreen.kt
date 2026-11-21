@@ -6,6 +6,7 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
@@ -468,7 +469,92 @@ fun PlexoStatisticScreen(viewModel: DownloadViewModel) {
                 }
             }
 
+            Spacer(modifier = Modifier.height(20.dp))
+
+            // Multi-Link Telemetry Breakdown
+            Text(
+                text = "Multi-link interfaces",
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Bold,
+                color = SageTextPrimary
+            )
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .horizontalScroll(rememberScrollState()),
+                horizontalArrangement = Arrangement.spacedBy(10.dp)
+            ) {
+                InterfaceTelemetryBadge(
+                    name = "Wi-Fi",
+                    status = if (networkState.wifi.isConnected) "Connected" else "Standby",
+                    speed = currentTask?.formattedWifiSpeed ?: "0 B/s",
+                    tint = VitalityMint,
+                    icon = Icons.Default.Wifi
+                )
+                InterfaceTelemetryBadge(
+                    name = "5G Cellular",
+                    status = if (networkState.cellular.isConnected) "Connected" else "Standby",
+                    speed = currentTask?.formattedCellularSpeed ?: "0 B/s",
+                    tint = VitalityOrange,
+                    icon = Icons.Default.CellTower
+                )
+                InterfaceTelemetryBadge(
+                    name = "USB Ethernet",
+                    status = if (networkState.ethernet.isConnected) "Connected" else "Standby",
+                    speed = currentTask?.formattedEthernetSpeed ?: "0 B/s",
+                    tint = VitalityCyan,
+                    icon = Icons.Default.Lan
+                )
+                InterfaceTelemetryBadge(
+                    name = "Bluetooth PAN",
+                    status = if (networkState.bluetooth.isConnected) "Connected" else "Standby",
+                    speed = currentTask?.formattedBluetoothSpeed ?: "0 B/s",
+                    tint = VitalityPurple,
+                    icon = Icons.Default.Bluetooth
+                )
+            }
+
             Spacer(modifier = Modifier.height(100.dp))
+        }
+    }
+}
+
+@Composable
+fun InterfaceTelemetryBadge(
+    name: String,
+    status: String,
+    speed: String,
+    tint: Color,
+    icon: androidx.compose.ui.graphics.vector.ImageVector
+) {
+    Box(
+        modifier = Modifier
+            .width(140.dp)
+            .clip(RoundedCornerShape(20.dp))
+            .background(VitalityGlassCard)
+            .border(1.dp, VitalityGlassBorder, RoundedCornerShape(20.dp))
+            .padding(14.dp)
+    ) {
+        Column {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Box(
+                    modifier = Modifier
+                        .size(26.dp)
+                        .clip(CircleShape)
+                        .background(VitalityGlassCardLight),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(icon, contentDescription = null, tint = tint, modifier = Modifier.size(14.dp))
+                }
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(name, fontSize = 12.sp, fontWeight = FontWeight.Bold, color = SageTextPrimary)
+            }
+            Spacer(modifier = Modifier.height(10.dp))
+            Text(status, fontSize = 10.sp, color = SageTextSecondary)
+            Text(speed, fontSize = 13.sp, fontWeight = FontWeight.Black, color = SageTextPrimary)
         }
     }
 }

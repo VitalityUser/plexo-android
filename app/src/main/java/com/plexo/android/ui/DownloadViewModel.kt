@@ -23,7 +23,9 @@ import kotlinx.coroutines.launch
 
 enum class PlexoTab {
     DOWNLOADS,
-    BROWSER
+    BROWSER,
+    STATISTICS,
+    PROFILE
 }
 
 data class DetectedDownload(

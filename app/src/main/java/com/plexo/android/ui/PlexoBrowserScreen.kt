@@ -99,7 +99,8 @@ fun PlexoBrowserScreen(
                     colors = listOf(
                         VitalityBgTop,
                         VitalityBgMid,
-                        VitalityBgBottom
+                        VitalityBgBottom,
+                        VitalityBgDeep
                     )
                 )
             )

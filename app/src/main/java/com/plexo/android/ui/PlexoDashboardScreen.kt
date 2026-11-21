@@ -5,6 +5,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -53,7 +54,8 @@ fun PlexoDashboardScreen(viewModel: DownloadViewModel) {
                     colors = listOf(
                         VitalityBgTop,
                         VitalityBgMid,
-                        VitalityBgBottom
+                        VitalityBgBottom,
+                        VitalityBgDeep
                     )
                 )
             )
@@ -152,7 +154,54 @@ fun PlexoDashboardScreen(viewModel: DownloadViewModel) {
                 color = SageTextSecondary
             )
 
-            Spacer(modifier = Modifier.height(22.dp))
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Signature Frosted Search Pill (matching reference screenshot pill "Search...")
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(30.dp))
+                    .background(VitalityGlassCard)
+                    .border(1.dp, VitalityGlassBorder, RoundedCornerShape(30.dp))
+                    .clickable { viewModel.selectTab(PlexoTab.BROWSER) }
+                    .padding(horizontal = 16.dp, vertical = 12.dp)
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(
+                            Icons.Default.Search,
+                            contentDescription = "Search",
+                            tint = SageTextPrimary,
+                            modifier = Modifier.size(18.dp)
+                        )
+                        Spacer(modifier = Modifier.width(10.dp))
+                        Text(
+                            text = "Search or enter download URL...",
+                            color = SageTextSecondary,
+                            fontSize = 13.sp
+                        )
+                    }
+                    Box(
+                        modifier = Modifier
+                            .clip(RoundedCornerShape(16.dp))
+                            .background(VitalityGlassCardLight)
+                            .padding(horizontal = 8.dp, vertical = 4.dp)
+                    ) {
+                        Text(
+                            text = "BROWSER",
+                            fontSize = 10.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = VitalityMint
+                        )
+                    }
+                }
+            }
+
+            Spacer(modifier = Modifier.height(20.dp))
 
             // Section: Today's Stats (Matching screenshot with circular progress meter cards)
             Row(

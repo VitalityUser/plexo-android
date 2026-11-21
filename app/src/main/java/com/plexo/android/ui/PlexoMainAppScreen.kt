@@ -44,6 +44,12 @@ fun PlexoMainAppScreen(viewModel: DownloadViewModel) {
                 PlexoTab.BROWSER -> {
                     PlexoBrowserScreen(viewModel = viewModel)
                 }
+                PlexoTab.STATISTICS -> {
+                    PlexoStatisticScreen(viewModel = viewModel)
+                }
+                PlexoTab.PROFILE -> {
+                    PlexoProfileScreen(viewModel = viewModel)
+                }
             }
         }
 
@@ -90,7 +96,7 @@ fun VitalityFloatingNavBar(
     Box(
         modifier = Modifier
             .shadow(
-                elevation = 16.dp,
+                elevation = 18.dp,
                 shape = RoundedCornerShape(36.dp),
                 ambientColor = Color.Black,
                 spotColor = Color.Black
@@ -98,107 +104,93 @@ fun VitalityFloatingNavBar(
             .clip(RoundedCornerShape(36.dp))
             .background(VitalityDarkNav)
             .border(1.dp, VitalityGlassBorder, RoundedCornerShape(36.dp))
-            .padding(horizontal = 8.dp, vertical = 6.dp)
+            .padding(horizontal = 6.dp, vertical = 6.dp)
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
+            horizontalArrangement = Arrangement.spacedBy(6.dp)
         ) {
-            // Tab 1: Downloader
-            val isDownloader = currentTab == PlexoTab.DOWNLOADS
-            if (isDownloader) {
-                // Active Pill
-                Row(
-                    modifier = Modifier
-                        .clip(RoundedCornerShape(26.dp))
-                        .background(VitalityPillActive)
-                        .padding(horizontal = 18.dp, vertical = 10.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    Icon(
-                        Icons.Default.Bolt,
-                        contentDescription = "Downloader",
-                        tint = VitalityPillText,
-                        modifier = Modifier.size(18.dp)
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(
-                        text = "Downloader",
-                        fontSize = 13.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = VitalityPillText
-                    )
-                }
-            } else {
-                // Inactive Circle Button
-                Box(
-                    modifier = Modifier
-                        .size(44.dp)
-                        .clip(CircleShape)
-                        .background(VitalityGlassCardDark)
-                        .clickable(
-                            interactionSource = remember { MutableInteractionSource() },
-                            indication = null
-                        ) { onTabSelected(PlexoTab.DOWNLOADS) },
-                    contentAlignment = Alignment.Center
-                ) {
-                    Icon(
-                        Icons.Default.Bolt,
-                        contentDescription = "Downloader",
-                        tint = SageTextSecondary,
-                        modifier = Modifier.size(18.dp)
-                    )
-                }
-            }
+            VitalityNavBarItem(
+                tab = PlexoTab.DOWNLOADS,
+                icon = Icons.Default.Bolt,
+                label = "Home",
+                isSelected = currentTab == PlexoTab.DOWNLOADS,
+                onSelect = onTabSelected
+            )
+            VitalityNavBarItem(
+                tab = PlexoTab.BROWSER,
+                icon = Icons.Default.Language,
+                label = "Browser",
+                isSelected = currentTab == PlexoTab.BROWSER,
+                onSelect = onTabSelected
+            )
+            VitalityNavBarItem(
+                tab = PlexoTab.STATISTICS,
+                icon = Icons.Default.BarChart,
+                label = "Statistic",
+                isSelected = currentTab == PlexoTab.STATISTICS,
+                onSelect = onTabSelected
+            )
+            VitalityNavBarItem(
+                tab = PlexoTab.PROFILE,
+                icon = Icons.Default.Person,
+                label = "Profile",
+                isSelected = currentTab == PlexoTab.PROFILE,
+                onSelect = onTabSelected
+            )
+        }
+    }
+}
 
-            // Tab 2: Browser
-            val isBrowser = currentTab == PlexoTab.BROWSER
-            if (isBrowser) {
-                // Active Pill
-                Row(
-                    modifier = Modifier
-                        .clip(RoundedCornerShape(26.dp))
-                        .background(VitalityPillActive)
-                        .padding(horizontal = 18.dp, vertical = 10.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    Icon(
-                        Icons.Default.Language,
-                        contentDescription = "Browser",
-                        tint = VitalityPillText,
-                        modifier = Modifier.size(18.dp)
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(
-                        text = "Browser",
-                        fontSize = 13.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = VitalityPillText
-                    )
-                }
-            } else {
-                // Inactive Circle Button
-                Box(
-                    modifier = Modifier
-                        .size(44.dp)
-                        .clip(CircleShape)
-                        .background(VitalityGlassCardDark)
-                        .clickable(
-                            interactionSource = remember { MutableInteractionSource() },
-                            indication = null
-                        ) { onTabSelected(PlexoTab.BROWSER) },
-                    contentAlignment = Alignment.Center
-                ) {
-                    Icon(
-                        Icons.Default.Language,
-                        contentDescription = "Browser",
-                        tint = SageTextSecondary,
-                        modifier = Modifier.size(18.dp)
-                    )
-                }
-            }
+@Composable
+fun VitalityNavBarItem(
+    tab: PlexoTab,
+    icon: androidx.compose.ui.graphics.vector.ImageVector,
+    label: String,
+    isSelected: Boolean,
+    onSelect: (PlexoTab) -> Unit
+) {
+    if (isSelected) {
+        Row(
+            modifier = Modifier
+                .clip(RoundedCornerShape(26.dp))
+                .background(VitalityPillActive)
+                .padding(horizontal = 14.dp, vertical = 9.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Icon(
+                icon,
+                contentDescription = label,
+                tint = VitalityPillText,
+                modifier = Modifier.size(17.dp)
+            )
+            Spacer(modifier = Modifier.width(6.dp))
+            Text(
+                text = label,
+                fontSize = 12.sp,
+                fontWeight = FontWeight.Bold,
+                color = VitalityPillText
+            )
+        }
+    } else {
+        Box(
+            modifier = Modifier
+                .size(40.dp)
+                .clip(CircleShape)
+                .background(VitalityGlassCardDark)
+                .clickable(
+                    interactionSource = remember { MutableInteractionSource() },
+                    indication = null
+                ) { onSelect(tab) },
+            contentAlignment = Alignment.Center
+        ) {
+            Icon(
+                icon,
+                contentDescription = label,
+                tint = SageTextSecondary,
+                modifier = Modifier.size(17.dp)
+            )
         }
     }
 }
